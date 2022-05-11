@@ -36,6 +36,10 @@ For this project, I intend to use a version of DenseNet with the addition of Att
 
 ## Results
 
+### FFT and Poincare Plots
+
+### DenseNet 
+
 ## Conclusions
 
 ## References and Resources
