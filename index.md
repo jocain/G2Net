@@ -6,14 +6,14 @@
 In this page, I will cover my approaches to tackling the Kaggle G2Net Gravatitational Wave challenge. The challenge provided a data set generated
 by the G2Net Collaboration simulating LIGO data from the LIGO Haverford, LIGO Livingston, and VIRGO detectors with and without a detected gravitational
 wave. To tackle this time series classification problem, I employ a few different signal analysis and machine learning techniques, including FFTs,
-Poincare plots, Wavelet Transforms, and Convolutional Neural Networks.
+Poincare plots, and Convolutional Neural Networks.
 
 
 ## Gravitaional Waves
 
 Gravitational Waves were first theorized in the 1850s but physics lacked the framework to describe them. In 1916, Albert Einstien, having formulated the general relativity field equations, predicted the existence of gravitational waves. It would be almost another century before they were finally discovered. On the morning of September 14, 2015, the Laser Interferometer Gravitational-Wave Observatories (LIGO) at Hanford, Washington and Livingston, Louisiana simoteneously observed a transient gravitational wave signal. The signal came from the collapse of binary black hole system, in which the two super massive bodies spiraled into each other and finally merged. 
 
-[Detected Signal](https://github.com/jocain/G2Net/blob/40b4fa22e2599f24b3283af95a9f1fab6309c78f/detected%20wave.png)
+![Detected Signal](https://github.com/jocain/G2Net/blob/40b4fa22e2599f24b3283af95a9f1fab6309c78f/detected%20wave.png)
 
 The binary black hole collapse event is extremely rare, and there is a significant effort to be able to detect as many such events as possible when they occur. In October 2018, the European Cooperation in Science and Techonology initiated the G2Net collaboration with the goal of inviting collaboration among a broad range of fields in the gravitation wave pursuit, but with intentional focus on machine learning experts. In October 2021, G2Net posted a challege on Kaggle, inviting maching learning enthusiasts to join in on the search for gravitational waves. The challege asked contestants to create a machine learning model that could learn on a massive simulated data set of detected gravitational wave and noise signals from the Haverford, Livingston, and Virgo LIGO stations. In this project, I make an attempt at this challenge using a veriety of machine learning models. 
 
@@ -60,16 +60,16 @@ The peaks and troughs represent weights given to specific frequencies, and the m
 
 Poincare plots were a method of examining and quantifying features of signals and time series data long before computers and modern machine learning techniques could. Interestingly, these devices are named after Henri Poincare, who was also interested in gravitation waves. Poincare plots were a way of investigating self similarity process, and were usually associated with periodic functions or signals. Also known as a return map, Poincare plots are useful for identifying signals over noise. To create a Poincare plot, a time series of form <img src="https://render.githubusercontent.com/render/math?X\rightarrow(x_1, x_2,...,x_n)"> is transformed into a two-dimensional series <img src="https://render.githubusercontent.com/render/math?X'\rightarrow\{(x_1, x_2),(x_2,x_3),...,(x_{n-1}, x_n)\}"> and plotted. This creates a plot that looks like the following:
 
-Poincare Plot Example
+![Poincare Plot Example](https://github.com/jocain/G2Net/blob/e5932dca258e4e6b3142874578e589efd92b4178/PoincarePlot.gif)
 
 A Poincare plot will usually develop a slanted patterd with principal axes along longest and shortest axes of the distribution. A standard way to compare Poincare plots is to take the standard deviations along these axes and devide them:
 
-![Old Poincare Formula][(https://github.com/jocain/G2Net/blob/80b1ff8d42c64b4a6593d7f8e4f761699ec292bb/pstat1.png)]
+![Old Poincare Formula](https://github.com/jocain/G2Net/blob/80b1ff8d42c64b4a6593d7f8e4f761699ec292bb/pstat1.png)
 
 
 This provides some measure of , and has been applied with great success in clinical time series analysis in the realm of cardiology. Theoretically, this study might be able to use Poincare plots to identify small gravitational signals over . A novel Poincare plot statistic has also been introduce, in which the standard deviation of is calculated
 
-![Novel Poincare Formula][(https://github.com/jocain/G2Net/blob/80b1ff8d42c64b4a6593d7f8e4f761699ec292bb/pstat2new.png)]
+![Novel Poincare Formula](https://github.com/jocain/G2Net/blob/80b1ff8d42c64b4a6593d7f8e4f761699ec292bb/pstat2new.png)
 
 This method was also investigated. 
 
@@ -88,7 +88,7 @@ Creating mutliple convolutional layers at once can be extremely computationally 
 
 For this project, I used a version of DenseNet optimized for time series analysis. DenseNet was a recent winner of the ImageNet Challenge, and has shown in this research to be useful for time series analysis as well. DenseNet is unique in that it employs so-called Dense blocks of convolutional, batch normalization, and pooling layers that connect to previous blocks. The structure is shown below:
 
-[Densenet Structure](https://github.com/jocain/G2Net/blob/a7fc6d0d983ec570208f6d58a4f06e7ea35b5d76/densenet.png)
+![Densenet Structure](https://github.com/jocain/G2Net/blob/a7fc6d0d983ec570208f6d58a4f06e7ea35b5d76/densenet.png)
 
 DenseNet does not employ fully connected layers beyond the output layer, so all of the image or signal processing is handled by the dense blocks. 
 
@@ -102,16 +102,7 @@ The DenseNet model used 18,000 observations, were as non-deep learning models us
 
 ### FFT and Poincare Plots
 
-For the heuristics-based models, the dataset was first transformed usinig the respective process before being used for training by three different types of classifiers - Logistic Regression, Support Vector Classification, and Random Forrest Classification. Though the Poincare statistics only resulted in a single heuristic per time series and were therefore computationally cheap to train classifiers with, this was not true for the Discrete Transform statistics. A table containing the number of kept features per statistic per time series is included below. 
-
-
-| Heuristic | Kept Features|
------------------------------
-| FFT Power |     40       |
-| FFT Freq  |     1        |
-| Poincare  |     1        |
-| DCT/DST Power|  60       |
-| DCT/DST Freq|  1       |
+For the heuristics-based models, the dataset was first transformed usinig the respective process before being used for training by three different types of classifiers - Logistic Regression, Support Vector Classification, and Random Forrest Classification. Though the Poincare statistics only resulted in a single heuristic per time series and were therefore computationally cheap to train classifiers with, this was not true for the Discrete Transform statistics. I kept three types of heuristics - power, frequency, and Poincare stats. For power, I kept a range of powers (40-60, depending on FFT, DCT, or SCT) around the dominant peak. For frequency, I kept only the frequency with the largest amplitude (magnitude, not highest value). For Poincare, the statistics naturally allowed only on heuristic per time series. 
 
 Models were trained using K-Fold validation using 30 Folds, keeping the training and test accuracy and mean squared error for each fold. None of the models performed particularly well. A possible explanation is shown below:
 
@@ -161,5 +152,5 @@ At this point, none of my models performed particularly well. While I would like
 [DenseNet Article]( https://arxiv.org/abs/1608.06993)
 
 DenseNet for Time Series Article
-[Paper](  https://ieeexplore.ieee.org/abstract/document/9219631)
-[Github Repo]( https://github.com/josephazar/MLSTM-DenseNet)
+- [Paper](https://ieeexplore.ieee.org/abstract/document/9219631)
+- [Github Repo]( https://github.com/josephazar/MLSTM-DenseNet)
