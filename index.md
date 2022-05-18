@@ -98,7 +98,7 @@ The data for this experiment used observations of LIGO data, each of which conta
 
 ### FFT and Poincare Plots
 
-For the non-deep learning stage, FFT, FST, FCT, and Poincare Plot statist, the dataset was first transformed usinig the respective process before being used for training by three different types of classifiers - Logistic Regression, Support Vector Classification, and Random Forrest Classification. This process was repeated with feature standardization using standard scaling between the heurisitc calculation and model training. Though the Poincare statistics only resulted in a single heuristic per time series and were therefore computationally cheap to train classifiers with, this was not true for the Discrete Transform statistics. A table containing the number of kept features per statistic is included below. 
+For the heuristics-based models, the dataset was first transformed usinig the respective process before being used for training by three different types of classifiers - Logistic Regression, Support Vector Classification, and Random Forrest Classification. This process was repeated with feature standardization using standard scaling between the heurisitc calculation and model training. Though the Poincare statistics only resulted in a single heuristic per time series and were therefore computationally cheap to train classifiers with, this was not true for the Discrete Transform statistics. A table containing the number of kept features per statistic is included below. 
 
 kept stats
 
@@ -106,9 +106,27 @@ Models were trained using K-Fold validation using 30 Folds, keeping the training
 
 kept stats
 
-As is clear from the above table, none of the models performed particularly well. 
+As is clear from the above table, none of the models performed particularly well. A possible explanation is shown below:
+
+Shown in this series of graphs are the real parts of a FFT on 6,000 observations. From left to right are the different LIGO locations (Hanford, Livingston, Virgo). From top to bottom are the data with and with out a gravitational wave signal. In the optimal case, we would be able to clearly see a difference between corresponding top and bottom graphs, but no differences are clearly visible. The same is true when the features are scaled,
+
+
+
+and for other Discrete Transformations. Using PCA to reduce the features in the Poincare statistics to two, we can see the same problem:
+
+
+Here, detected waves are on the left, and noise in on the right. Because there is no significant difference between these plots, it makes sense that it is difficult for classification algorithms to spot the differences. 
 
 ### DenseNet 
+
+Compared to the non-deep learning models, the training of DenseNet was very non-linear. I started with a base DenseNet structure provided by that had been used in mutlivariate time series analysis of . Training of the model initally seemed fruitful. An example of model training over 500 epochs is shown below:
+
+As shown, the model began to stick at about a loss of 0.69315. Unfortunately, in the training possible in the time spent on this project, this seems to be the apex performance of the model. Once this performace was initially achieved, I attempted changing the learning rate. Under the assummption that the loss surface was not smooth, a learning rate kick might get the model to jump out of a local minima and get it to move towards a more global minima. Training included rate lowering if the loss plateaus, so ideally it would kick the model, and the model would return to normal training at a new, better minima. After this was unsuccessful, I retried training from using a completely new model, freezing everything but the last convolutional and output layer, before freezing those layers and unfreezing the rest of the model. This resulted in a plateau at the same spot, as did performing the same action in reverse. I attempted adding a new fully connected layer after the Dense blocks, retrying the freezing method, but to no avail. The best model statistics achieved are shown below:
+
+
+
+This was calculated using one random 50/50 split of the data into train and test sets. 
+
 
 ## Conclusions
 
