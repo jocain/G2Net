@@ -21,8 +21,9 @@ In October 2018, the European Cooperation in Science and Techonology G2Net colla
 
 Fourier Transforms are based on the idea that a collection of functions can form as an orthogonal basis set, and that you
 can build other functions as a linear combination of this set. In Linear Algebra, performing a dot product with of some vector with an orthonormal basis set will result in a series of weights. By using the weights in a linear combination of the basis set, the original vector can be recreated. In the same way, Fourier Transforms deconstruct functions into a power series called a frequency domain. Instead of performing dot products, the Fourier Transform utlilizes integrals over the whole range of the function to produce weights:
-
-<img src="https://render.githubusercontent.com/render/math?math=\hat{f} = \int^{\infty}_{-\infty}f(x)\e^{-2\pi ix\xi} dx">
+\begin{equation}
+hi = ni
+\end{equation}
 
 Here, 
 ## Poincare Plots
