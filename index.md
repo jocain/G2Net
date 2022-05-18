@@ -94,15 +94,25 @@ DenseNet does not employ fully connected layers beyond the output layer, so all 
 
 ## Methods and Results
 
-This data used 18,000 observations of LIGO data, each of which contained signals from three different stations. 
+The data for this experiment used observations of LIGO data, each of which contained signals from three different stations. Each time series contained interferometry signals sampled for two seconds at 2048Hz, resulting in series that were 4096 points long. Training was performed using Google Colab, which allowed GPU access during the deep learning protion of this experiment. 
 
 ### FFT and Poincare Plots
 
-For the non-deep learning stage, FFT, FST, FCT, and Poincare Plot statist, the dataset was first transformed
+For the non-deep learning stage, FFT, FST, FCT, and Poincare Plot statist, the dataset was first transformed usinig the respective process before being used for training by three different types of classifiers - Logistic Regression, Support Vector Classification, and Random Forrest Classification. This process was repeated with feature standardization using standard scaling between the heurisitc calculation and model training. Though the Poincare statistics only resulted in a single heuristic per time series and were therefore computationally cheap to train classifiers with, this was not true for the Discrete Transform statistics. A table containing the number of kept features per statistic is included below. 
+
+kept stats
+
+Models were trained using K-Fold validation using 30 Folds, keeping the training and test accuracy for each fold. The results are shown tabulated:
+
+kept stats
+
+As is clear from the above table, none of the models performed particularly well. 
 
 ### DenseNet 
 
 ## Conclusions
+
+At this point, none of my models performed particularly well. While I would like to continue on this project, the most important limiting factor in my models might very well be data - not enough data to differentiate signal from noise. At this point, I am able to use about 18,000 events in the optimal case, compared to the 786,000 events provided in the challenge. The highest scoring models achieved about 80% accuracy, which means I am well below even the error that they are getting. That being said, even with the small data set I am able to use, I should still be able to improve the models that I have, and there are definitely some things I still would like to try. First, it is clear from the failure of the Discrete Transform that whatever gravitaional signal exists is small - extremely small. I want to investigate how different scalars affect the power-frequency plots, especially where the powers are very weak, as the frequencies I am looking for might still be hidden. Additonaly, I want to try and play around with the standard deviations in the Poincare plots. As a starting point, I want to try using only the standard deviation in the "skinny" direction - if the signal is indeed as small as I belive it to be, it might appear as just a small amount of noise on top of the greater Ligo Signal, which would be more visible in the SD1 statisti than the SD1 Statistic. Finally, I would like to retry building a Convolutionnal Neural Network, but begin from scratch. ThI would like to optimize my search for a good struchtre using a process like Particle Swarm or Grid searching, but I this is the most tried an true method used in this problem. I believe it can work, but it requires something that DenseNet, or possibly this form of denseNet, does not have. 
 
 ## References and Resources
 
