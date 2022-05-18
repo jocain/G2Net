@@ -22,10 +22,9 @@ In October 2018, the European Cooperation in Science and Techonology G2Net colla
 Fourier Transforms are based on the idea that a collection of functions can form as an orthogonal basis set, and that you
 can build other functions as a linear combination of this set. In Linear Algebra, performing a dot product with of some vector with an orthonormal basis set will result in a series of weights. By using the weights in a linear combination of the basis set, the original vector can be recreated. In the same way, Fourier Transforms deconstruct functions into a power series called a frequency domain. Instead of performing dot products, the Fourier Transform utlilizes integrals over the whole range of the function to produce weights:
 
-$ he = ni $
+$$ \hat{f}(\xi) = \int^{infty}_{-\infty}{f(x)e^{-2i\pi x}dx $$
 
-
-Here, 
+Here, <img src="https://render.githubusercontent.com/render/math?\xi"> represents some frequency present in the orignial function <img src="https://render.githubusercontent.com/render/math?\f(x)"> with some weighting <img src="https://render.githubusercontent.com/render/math?\hat{f}(x)">. 
 ## Poincare Plots
 
 Poincare plots were a method of examining and quantifying features of signals and time series data long before computers and modern machine learning techniques could. 
