@@ -22,7 +22,7 @@ The binary black hole collapse event is extremely rare, and there is a significa
 Fourier Transforms are based on the idea that a collection of functions can form as an orthogonal basis set, and that you
 can build other functions as a linear combination of this set. In Linear Algebra, performing a dot product with of some vector with an orthonormal basis set will result in a series of weights. By using the weights in a linear combination of the basis set, the original vector can be recreated. In the same way, Fourier Transforms deconstruct functions into a power series called a frequency domain. Instead of performing dot products, the Fourier Transform utlilizes integrals over the whole range of the function to produce weights:
 
-![Fourier](https://github.com/jocain/G2Net/blob/80b1ff8d42c64b4a6593d7f8e4f761699ec292bb/ft.png)
+![Fourier](https://github.com/jocain/G2Net/ft.png)
 
 Here, <img src="https://render.githubusercontent.com/render/math?\xi"> represents some frequency-like thing that is present in the orignial function <img src="https://render.githubusercontent.com/render/math?\f(x)"> with some weighting <img src="https://render.githubusercontent.com/render/math?\hat{f}(x)">. Note that <img src="https://render.githubusercontent.com/render/math?\xi"> and <img src="https://render.githubusercontent.com/render/math?\hat{f}(x)"> are in general complex. To reverse this process and reproduce the original function, there is also an Inverse Transform:
 
