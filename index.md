@@ -22,12 +22,40 @@ In October 2018, the European Cooperation in Science and Techonology G2Net colla
 Fourier Transforms are based on the idea that a collection of functions can form as an orthogonal basis set, and that you
 can build other functions as a linear combination of this set. In Linear Algebra, performing a dot product with of some vector with an orthonormal basis set will result in a series of weights. By using the weights in a linear combination of the basis set, the original vector can be recreated. In the same way, Fourier Transforms deconstruct functions into a power series called a frequency domain. Instead of performing dot products, the Fourier Transform utlilizes integrals over the whole range of the function to produce weights:
 
-$$ \hat{f}(\xi) = \int^{infty}_{-\infty}{f(x)e^{-2i\pi x}dx $$
+$$ \hat{f}(\xi) = \int^{infty}_{-\infty}{f(x)e^{-2i\pi x \xi}dx $$
 
-Here, <img src="https://render.githubusercontent.com/render/math?\xi"> represents some frequency present in the orignial function <img src="https://render.githubusercontent.com/render/math?\f(x)"> with some weighting <img src="https://render.githubusercontent.com/render/math?\hat{f}(x)">. 
+Here, <img src="https://render.githubusercontent.com/render/math?\xi"> represents some frequency-like thing that is present in the orignial function <img src="https://render.githubusercontent.com/render/math?\f(x)"> with some weighting <img src="https://render.githubusercontent.com/render/math?\hat{f}(x)">. Note that <img src="https://render.githubusercontent.com/render/math?\xi"> and <img src="https://render.githubusercontent.com/render/math?\hat{f}(x)"> are in general complex To reverse this process and reproduce the original function, there is also an Inverse Transform:
+
+$$ f(x) = \int^{infty}_{-\infty}{\hat{f}(\xi)e^{2i\pi x \xi}dx $$
+
+This process can also be performed with sines and cosines. This process is a generalization of the Fourier Series, which used sine and cosine waves to decompose periodic functions. Sine and Cosine Transforms also exist:
+
+$$ f(x) = \int^{infty}_{-\infty}{f(x)(A(\lambda)\cos(2\pi\lambda x) + B(\lambda)\sin(2\pi\lambda x))dx $$
+
+Here, <img src="https://render.githubusercontent.com/render/math?\lambda"> much more closely translates to frequency, and A and B become the weights, which are found by  
+
+$$ f(x) = \int^{infty}_{-\infty}{f(x)(A(\lambda)\cos(2\pi\lambda x) + B(\lambda)\sin(2\pi\lambda x))dx $$
+
+and
+
+
+$$ f(x) = \int^{infty}_{-\infty}{f(x)(A(\lambda)\cos(2\pi\lambda x) + B(\lambda)\sin(2\pi\lambda x))dx $$.
+
+To perform this on a real dataset, we can use Fast Fourier Transforms (FFT). Because the points are descretized, there are a now limited number of avalible frequencies to investigate. The integral becomes a sum, with weights y for frequencies k, given a dataset of size N:
+
+$$ y(k) = \sum^{N-1}_{n = 0} e^{-2i\pi kn/N}x_n $$
+
+And the inverse transform becomes 
+
+$$ x(n) = \frac{1}{N}\sum^{N-1}_{k = 0} e^{2i\pi kn/N}y(k) $$
+
+Similar sums exist for Discrete Sine and Cosine Transforms (DST/DCT). 
+
+Ideally, underneath all the noise in the LIGO interferometry is some signal that consistently occurs on a frequency or a set of frequencies. If this is the case, then it's possible that we can use FFTs, DSTs, or DCTs as a method of identifying gravitational wave signals. 
+
 ## Poincare Plots
 
-Poincare plots were a method of examining and quantifying features of signals and time series data long before computers and modern machine learning techniques could. 
+Poincare plots were a method of examining and quantifying features of signals and time series data long before computers and modern machine learning techniques could. Interestingly, these devices are named after Henri Poincare, who was also interested in gravitation waves. Poincare plots were a way of investigating self similarity process, and were usually associated with periodic functions or signals. Also known as a return map, Poincare plots are useful for identifying signals over noise. To create a Poincare plot, a time series of form 
 
 ## Convolutional Neural Networks
 
