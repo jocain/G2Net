@@ -11,15 +11,18 @@ Poincare plots, Wavelet Transforms, and Convolutional Neural Networks.
 
 ## Gravitaional Waves
 
-Gravitational Waves were first theorized in the 1850s but physics lacked the framework to describe them until General Relativity. Gravitational Waves were first discovered at the Laser Interferometer Gravitational-Wave Observatories (LIGO) at Hanford, Washington and Livingston, Louisiana, simoteneously. The signal came from the collapse of . 
+Gravitational Waves were first theorized in the 1850s but physics lacked the framework to describe them. In 1916, Albert Einstien, having formulated the general relativity field equations, predicted the existence of gravitational waves. It would be almost another century before they were finally discovered. On the morning of September 14, 2015, the Laser Interferometer Gravitational-Wave Observatories (LIGO) at Hanford, Washington and Livingston, Louisiana simoteneously observed a transient gravitational wave signal. The signal came from the collapse of binary black hole system, in which the two super massive bodies spiraled into each other and finally merged. 
 
-In , the G2Net collaboration was formed with the goal of . In October 2021, the G2Net
+In October 2018, the European Cooperation in Science and Techonology G2Net collaboration was formed with the goal of . In October 2021, the G2Net
 
 ## Fourier Transforms and FFT
 
 Fourier Transforms are based on the idea that a collection of functions can form as an orthogonal basis set, and that you
-can build other functions as a linear combination of this set. In Linear Algebra, a 
+can build other functions as a linear combination of this set. In Linear Algebra, performing a dot product with of some vector with an orthonormal basis set will result in a series of weights. By using the weights in a linear combination of the basis set, the original vector can be recreated. In the same way, Fourier Transforms deconstruct functions into a power series called a frequency domain. Instead of performing dot products, the Fourier Transform utlilizes integrals over the whole range of the function to produce weights:
 
+<img src="https://render.githubusercontent.com/render/math?math=e^{i \pi} = -1">
+
+Here, 
 ## Poincare Plots
 
 Poincare plots were a method of examining and quantifying features of signals and time series data long before computers and modern machine learning techniques could. 
